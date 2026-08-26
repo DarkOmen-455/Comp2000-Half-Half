@@ -15,11 +15,15 @@ public class app{
 
         //Method to allow window closing
         frame.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent we){
+            @Override public void windowClosing(WindowEvent we){
                 System.exit(0);
             }
 
         });
     }
+
+    }
+
+ 
 
 }
