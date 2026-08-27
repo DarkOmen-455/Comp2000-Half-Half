@@ -23,6 +23,7 @@ public class Window extends Frame {
     @Override public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawRect(0, 1, 100, 500);
+        //to do, add grid logic
     }
 
     
