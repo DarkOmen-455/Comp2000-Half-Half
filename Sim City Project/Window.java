@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class Window extends Frame {
 
     // constructor, acts as a decorator for our main window
@@ -8,7 +10,12 @@ public class Window extends Frame {
         this.setTitle("Sim City");
         this.setBackground(Color.green);
 
-        
+   this.addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we){
+                System.exit(0);
+            }
+
+        });
 
     }
 
