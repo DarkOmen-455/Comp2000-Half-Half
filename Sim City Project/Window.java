@@ -24,7 +24,17 @@ public class Window extends Frame {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawLine(400, 0, 400, 600); //vertical line
         g2d.drawLine(0, 300, 800, 300); // horizontal line
-        //to do, add grid logic
+        //to do, add grid logic so probably a for loop, repeating until we hit 400 for the x, 800 for the y?
+        
+        //loop for vertical lines
+        for (int i = 0; i < 10; i++) {
+            g2d.drawLine(i * 100, 0, i * 100, 600);    
+        }
+
+        //loop for horizontal line
+        for (int i = 0; i < 10; i++) {
+           g2d.drawLine(0, i*100, 800, i*100); 
+        }
     }
 
     
