@@ -22,7 +22,8 @@ public class Window extends Frame {
     // paint method used to add graphics to the screen
     @Override public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawLine(400, 0, 400, 600);
+        g2d.drawLine(400, 0, 400, 600); //vertical line
+        g2d.drawLine(0, 300, 800, 300); // horizontal line
         //to do, add grid logic
     }
 
