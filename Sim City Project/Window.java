@@ -35,6 +35,7 @@ public class Window extends Frame {
         for (int i = 0; i < 10; i++) {
            g2d.drawLine(0, i*100, 800, i*100); 
         }
+        //to do, somehow get more squares on the grid
     }
 
     
