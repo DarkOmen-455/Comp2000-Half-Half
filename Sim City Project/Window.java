@@ -27,13 +27,13 @@ public class Window extends Frame {
         //to do, add grid logic so probably a for loop, repeating until we hit 400 for the x, 800 for the y?
         
         //loop for vertical lines
-        for (int i = 0; i < 10; i++) {
-            g2d.drawLine(i * 100, 0, i * 100, 600);    
+        for (int i = 0; i < 100; i++) {
+            g2d.drawLine(i * 50, 0, i * 50, 600);    
         }
 
         //loop for horizontal line
-        for (int i = 0; i < 10; i++) {
-           g2d.drawLine(0, i*100, 800, i*100); 
+        for (int i = 0; i < 100; i++) {
+           g2d.drawLine(0, i*50, 800, i*50); 
         }
         //to do, somehow get more squares on the grid
     }
