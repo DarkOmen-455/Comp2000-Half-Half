@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 abstract class Building {
     private int x, y;
 
