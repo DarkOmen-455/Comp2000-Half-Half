@@ -3,10 +3,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class Window extends Frame {
 
+    
+    int width; 
+    int height;
     // constructor, acts as a decorator for our main window
-    Window(){
+    Window(int width, int height){
         this.setVisible(true);
-        this.setSize(800,600);
+        this.setSize(width,height);
         this.setTitle("Sim City");
         this.setBackground(Color.green);
 
@@ -18,6 +21,7 @@ public class Window extends Frame {
         });
 
     }
+ 
 
     // paint method used to add graphics to the screen
     @Override public void paint(Graphics g){
@@ -26,16 +30,36 @@ public class Window extends Frame {
         g2d.drawLine(0, 300, 800, 300); // horizontal line
         //to do, add grid logic so probably a for loop, repeating until we hit 400 for the x, 800 for the y?
         
+
+
         //loop for vertical lines
         for (int i = 0; i < 100; i++) {
-            g2d.drawLine(i * 50, 0, i * 50, 600);    
+            g2d.drawLine(i * 50, 50, i * 50, 550);    
         }
 
         //loop for horizontal line
         for (int i = 0; i < 100; i++) {
-           g2d.drawLine(0, i*50, 800, i*50); 
+           g2d.drawLine(50, i*50, 750, i*50); 
         }
         //to do, somehow get more squares on the grid
+
+        //draw an oval
+        Graphics2D ovalg2d = (Graphics2D) g;
+        drawRedOval(ovalg2d,2,2);
+        ///removeDrawing(ovalg2d, 2, 2);
+
+    }
+    
+    public void drawRedOval(Graphics2D ovalg2d, int x, int y){;// draws red oval
+        ovalg2d.setColor(Color.RED);
+        //ovalg2d.drawOval(75,75,25,25);
+        ovalg2d.fillOval((x*50)+7,(y*50)+7,35,35);
+    }
+    
+    public void removeDrawing( int x, int y){// replaces current object with green reactacngle 
+        Graphics2D ob = (Graphics2D) g;
+        ob.setColor(Color.green);
+        ob.fillRect((x*50)+1,(y*50)+1, 48,48);
     }
 
     
