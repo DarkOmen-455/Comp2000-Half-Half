@@ -26,9 +26,6 @@ public class Window extends Frame {
     // paint method used to add graphics to the screen
     @Override public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawLine(400, 0, 400, 600); //vertical line
-        g2d.drawLine(0, 300, 800, 300); // horizontal line
-        //to do, add grid logic so probably a for loop, repeating until we hit 400 for the x, 800 for the y?
         
 
 
@@ -41,7 +38,6 @@ public class Window extends Frame {
         for (int i = 0; i < 100; i++) {
            g2d.drawLine(50, i*50, 750, i*50); 
         }
-        //to do, somehow get more squares on the grid
 
         //draw an oval
         Graphics2D ovalg2d = (Graphics2D) g;

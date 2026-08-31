@@ -9,6 +9,9 @@ public class House extends Building{
     //red circle represents house
     public void build(int x, int y){
 
-        drawRedOval(x,y);
+        
+    }
+    @Override public void paint(Graphics2D g2d){
+        g2d.drawRedOval(x,y);       
     }
 }

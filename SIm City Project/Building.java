@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-abstract class Building {
-    private int x, y;
+import java.awt.Frame;
+abstract class Building extends Frame {
+    public int x, y;
 
     public void setX(int X){
         this.x = X;
