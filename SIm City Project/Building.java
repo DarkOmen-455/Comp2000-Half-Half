@@ -18,7 +18,10 @@ abstract class Building {
         return y;
     }
 
+    public int getPopulation(){
+        return -1;
+    }
+
     public abstract void build(Graphics2D g2d, int x, int y);
     
-    public abstract void destroy(int x, int y);
 }
