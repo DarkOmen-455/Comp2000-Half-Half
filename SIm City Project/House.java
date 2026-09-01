@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+import java.awt.Color;
 public class House extends Building{
     private int children, adults;
     
@@ -7,8 +9,15 @@ public class House extends Building{
     }
 
     //red circle represents house
-    public void build(int x, int y){
-
-        drawRedOval(x,y);
+    @Override
+    public void build(Graphics2D g2d, int x, int y) {
+        g2d.setColor(Color.RED);
+        g2d.fillOval((x * 50) + 7, (y * 50) + 7, 35, 35);
     }
+
+    @Override
+    public void destroy(int x, int y) {
+        // no special effect needed for now
+    }
+
 }

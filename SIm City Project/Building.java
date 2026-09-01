@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.awt.Graphics2D;
 abstract class Building {
     private int x, y;
 
@@ -18,7 +18,7 @@ abstract class Building {
         return y;
     }
 
-    public abstract void build(int x, int y);
+    public abstract void build(Graphics2D g2d, int x, int y);
     
     public abstract void destroy(int x, int y);
 }
