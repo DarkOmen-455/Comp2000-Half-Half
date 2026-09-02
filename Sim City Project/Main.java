@@ -7,19 +7,18 @@ public class Main {
         Window w = new Window(800, 600); // width then height
 
         House test = new House(3, 3);
-        w.place(5, 5, test);
+        for (int i = 0; i < 10; i++) {
+            int randomX = (int)(Math.random() * 9);
+            int randomY = (int)(Math.random() * 9);
+            TimeUnit.SECONDS.sleep(1);
+            w.place(randomX, randomY, test);
+        }
+        
 
         Apartment test2 = new Apartment();
         w.place (6,6,test2);
 
         Office test3 = new Office(7);
-        
-
-        for (int i = 0; i < 10; i++) {
-            int randomX = (int)(Math.random() * 10);
-            int randomY = (int)(Math.random() * 10);
-            TimeUnit.SECONDS.sleep(1);
-            w.place(randomX,randomY, test3);
-        }
+        w.place(0, 0, test3);
     }
 }
