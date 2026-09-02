@@ -118,6 +118,7 @@ public class Window extends Frame {
         grid[x][y] = null;
         repaint();
     }
+
     public void place(int x, int y, Building b){
         if (x >= 1 && x < grid.length && y >= 1 && y < grid[x].length) {// inside grid
             grid[x][y] = b;
