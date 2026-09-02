@@ -35,6 +35,6 @@ public class Main {
              System.out.println(randomY);
     
         Office test3 = new Office(0, 0);
-        w.place(14, randomY, test3);
+        w.place(randomX, randomY, test3);
     }
 }
