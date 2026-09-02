@@ -44,7 +44,7 @@ public class Window extends Frame {
     Window(int width, int height){
         this.width = width;
         this.height = height;
-        this.grid = new Building[10][14];
+        this.grid = new Building[14][14];
         this.setVisible(true);
         this.setSize(width,height);
         this.setTitle("Sim City");
@@ -120,7 +120,9 @@ public class Window extends Frame {
     }
 
     public void place(int x, int y, Building b){
-        if (x >= 1 && x < grid.length && y >= 1 && y < grid[x].length) {// inside grid
+
+        System.out.println(grid.length);
+        if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
             grid[x][y] = b;
             repaint();
         }
