@@ -2,11 +2,17 @@ import java.awt.*;
 public class Office extends Apartment{
     private int workers; 
 
-    public Office(int x){
-        workers = x;
+    public Office(int x, int y){
+        this.workers  = getWorkers();
     }
 
 
+    public void setWorkers(int X){
+        workers = X;
+    }
+    public int getWorkers(){
+        return workers;
+    }
 
     public int getPopulation(){
         return workers;

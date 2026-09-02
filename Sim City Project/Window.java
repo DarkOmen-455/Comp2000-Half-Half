@@ -68,6 +68,7 @@ public class Window extends Frame {
     }
 
     public void place(int x, int y, Building b){
+        System.out.println(grid.length);
         if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
             grid[x][y] = b;
             repaint();
