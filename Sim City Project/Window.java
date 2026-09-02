@@ -66,6 +66,7 @@ public class Window extends Frame {
         g2d.setColor(Color.green);
         g2d.fillRect((x*50)+1,(y*50)+1, 48,48);
     }
+
     public void place(int x, int y, Building b){
         if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
             grid[x][y] = b;
