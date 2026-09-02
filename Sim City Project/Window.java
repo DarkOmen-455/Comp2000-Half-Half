@@ -49,7 +49,7 @@ public class Window extends Frame {
         this.setSize(width,height);
         this.setTitle("Sim City");
         this.setBackground(Color.green);
-        Building[][] grid = new Building[15][10];
+        Building[][] grid = new Building[height/50][width/50];
 
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we){
