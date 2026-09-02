@@ -18,17 +18,17 @@ public class Main {
         w.place (6,6,test2);
 
          var random = new Random();
-        // int minX = 1;
+         int minX = 1;
          int minY = 1;
-        // int maxX = 
-        int maxY = 10;
-        //     int randomX = 2 + (int)(Math.random() * ((14 - 2)) + 1);
+         int maxX = 14;
+         int maxY = 10;
+           int randomX = random.nextInt(maxX - minX + 1) + minX;
            int randomY = random.nextInt(maxY - minY + 1) + minY;
 
-        //     System.out.println(randomX);
+             System.out.println(randomX);
              System.out.println(randomY);
     
         Office test3 = new Office(0, 0);
-        w.place(9, randomY, test3);
+        w.place(14, randomY, test3);
     }
 }

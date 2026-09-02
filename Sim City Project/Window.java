@@ -11,7 +11,7 @@ public class Window extends Frame {
     Window(int width, int height){
         this.width = width;
         this.height = height;
-        this.grid = new Building[10][14];
+        this.grid = new Building[14][14];
         this.setVisible(true);
         this.setSize(width,height);
         this.setTitle("Sim City");
