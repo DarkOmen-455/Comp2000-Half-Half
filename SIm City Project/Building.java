@@ -22,6 +22,10 @@ abstract class Building {
         return -1;
     }
 
+    public boolean toBeBuilt(){
+        return false;
+    }
+
     public abstract void build(Graphics2D g2d, int x, int y);
     
 }

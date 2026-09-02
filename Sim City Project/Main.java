@@ -1,4 +1,3 @@
-import java.awt.Graphics2D;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Initializing program");
@@ -9,5 +8,9 @@ public class Main {
 
         Apartment test2 = new Apartment();
         w.place (6,6,test2);
+        w.remove(6,6);
+
+        w.totalPeople();
+        
     }
 }
