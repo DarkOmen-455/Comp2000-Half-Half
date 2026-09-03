@@ -36,5 +36,8 @@ public class Main {
     
         Office test3 = new Office(0, 0);
         w.place(6, 7, test3);
+
+        School test4 = new School();
+        w.place (6,6,test4); 
     }
 }
