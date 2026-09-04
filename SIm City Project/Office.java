@@ -14,6 +14,7 @@ public class Office extends Apartment{
         return workers;
     }
 
+    @Override
     public int getPopulation(){
         return workers;
     }
