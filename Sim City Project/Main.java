@@ -1,11 +1,13 @@
-
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+
+
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
         Window w = new Window(800, 600); // width then height
+        StatsWindow sw = new StatsWindow(300, 300);
 
         
          var random = new Random();
@@ -16,7 +18,7 @@ public class Main {
 
 
         House test = new House(3, 3);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
            int randomX = random.nextInt(maxX - minX + 1) + minX;
            int randomY = random.nextInt(maxY - minY + 1) + minY;
             TimeUnit.SECONDS.sleep(1);
@@ -29,6 +31,8 @@ public class Main {
         w.remove(6,6);
 
         w.totalPeople();
+        sw.updateLabel(Integer.toString(w.total));
+
         
 
 
@@ -38,6 +42,6 @@ public class Main {
         w.place(6, 7, test3);
 
         School test4 = new School();
-        w.place (6,6,test4); 
+        w.place (6,8,test4); 
     }
 }

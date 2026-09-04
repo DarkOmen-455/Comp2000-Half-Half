@@ -1,5 +1,5 @@
-import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Graphics2D;
 public class School extends Building {
     private int students, teachers; 
     //rule (can be changed later): if 200 children in 5 square radious ad school.
@@ -25,7 +25,7 @@ public class School extends Building {
     }
 
     @Override 
-    Public int getPopulation() {
+    public int getPopulation() {
         return this.getStudents() + this.getTeachers(); 
     }
 

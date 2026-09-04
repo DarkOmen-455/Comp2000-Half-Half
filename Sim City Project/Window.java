@@ -6,9 +6,9 @@ public class Window extends Frame {
     private int width;
     private int height;
     private Building[][] grid;
+    public int total = 0;
 
      public int totalPeople(){
-        int total = 0;
         for (int i = 0; i<grid.length; i++){
             for (int z = 0; z<grid[i].length; z++){
                 if (grid[z][i] instanceof House){
