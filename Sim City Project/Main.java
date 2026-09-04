@@ -18,7 +18,7 @@ public class Main {
 
 
         House test = new House(3, 3);
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 35; i++) {
            int randomX = random.nextInt(maxX - minX + 1) + minX;
            int randomY = random.nextInt(maxY - minY + 1) + minY;
             TimeUnit.SECONDS.sleep(1);
@@ -43,5 +43,8 @@ public class Main {
 
         School test4 = new School();
         w.place (6,8,test4); 
+
+        Mall test5 = new Mall();
+        w.place(9, 3, test5);
     }
 }
