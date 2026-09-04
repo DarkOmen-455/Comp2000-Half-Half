@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.concurrent.*;
+
 
 
 public class Main {
@@ -7,20 +10,20 @@ public class Main {
         StatsWindow sw = new StatsWindow(300, 300);
 
         
-        //  var random = new Random();
-        //  int minX = 1;
-        //  int minY = 1;
-        //  int maxX = 14;
-        //  int maxY = 10;
+         var random = new Random();
+         int minX = 1;
+         int minY = 1;
+         int maxX = 14;
+         int maxY = 10;
 
 
-        // House test = new House(3, 3);
-        // for (int i = 0; i < 10; i++) {
-        //    int randomX = random.nextInt(maxX - minX + 1) + minX;
-        //    int randomY = random.nextInt(maxY - minY + 1) + minY;
-        //     TimeUnit.SECONDS.sleep(1);
-        //     w.place(randomX, randomY, test);
-        // }
+        House test = new House(3, 3);
+        for (int i = 0; i < 11; i++) {
+           int randomX = random.nextInt(maxX - minX + 1) + minX;
+           int randomY = random.nextInt(maxY - minY + 1) + minY;
+            TimeUnit.SECONDS.sleep(1);
+            w.place(randomX, randomY, test);
+        }
         
 
         Apartment test2 = new Apartment();
@@ -28,8 +31,8 @@ public class Main {
         w.remove(6,6);
 
         w.totalPeople();
-        sw.updateLabel("wsg");
-        sw.label.setVisible(true);
+        sw.updateLabel(Integer.toString(w.total));
+
         
 
 

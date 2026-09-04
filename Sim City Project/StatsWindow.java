@@ -10,12 +10,14 @@ public class StatsWindow extends Frame {
         this.setVisible(true);
         this.setLocation(1920/2, 1080/2);
 
-        label.setVisible(true);
+       this.add(label);
+       label.setVisible(true);
 
         
     }
 
     public void updateLabel(String text){
         label.setText("population: " + text);
+         
     }
 }
