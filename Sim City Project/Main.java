@@ -32,9 +32,8 @@ public class Main {
 
         w.totalPeople();
         sw.updateLabel(Integer.toString(w.total));
-
-        
-
+      
+    
 
          
     
@@ -46,5 +45,10 @@ public class Main {
 
         Mall test5 = new Mall();
         w.place(9, 3, test5);
+
+        Shop test6 = new Shop(); 
+        w.place(11, 5, test6); 
+
+        sw.updateShopLabel(Integer.toString(w.getShopCount()));
     }
 }

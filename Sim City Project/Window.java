@@ -210,4 +210,17 @@ public class Window extends Frame {
         }
         return false;
     }
+
+    public int getShopCount() {
+        int count = 0;
+
+        for (int x = 0; x < grid.length; x++) { 
+            for( int y = 0; y < grid[x].length; y++) {
+                if (grid[x][y] instanceof Shop) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 }
