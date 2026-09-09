@@ -38,19 +38,11 @@ public class Main {
         // }
         // int i = 1;
 
-        // w.place(i, i, test);
-        // System.out.println(w.getBuilding("House"));
-        // i++;
 
-        // Apartment test2 = new Apartment();
-        // w.place (6,6,test2);
-        // w.remove(6,6);
-
-        // w.totalPeople();
-        // sw.updateLabel(Integer.toString(w.total));
-
-        
-
+        w.totalPeople();
+        sw.updateLabel(Integer.toString(w.total));
+      
+    
 
          
     
@@ -60,8 +52,14 @@ public class Main {
         // School test4 = new School();
         // w.place (6,8,test4); 
 
-        // Mall test5 = new Mall();
-        // w.place(9, 3, test5);
+
+        Mall test5 = new Mall();
+        w.place(9, 3, test5);
+
+        Shop test6 = new Shop(); 
+        w.place(11, 5, test6); 
+
+        sw.updateShopLabel(Integer.toString(w.getShopCount()));
     }
     
 }
