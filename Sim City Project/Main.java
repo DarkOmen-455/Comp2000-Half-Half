@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
         Window w = new Window(800, 600); // width then height
-        StatsWindow sw = new StatsWindow(300, 300);
+       // StatsWindow sw = new StatsWindow(300, 300);
 
         
          var random = new Random();
@@ -18,33 +18,50 @@ public class Main {
 
 
         House test = new House(3, 3);
-        for (int i = 0; i < 35; i++) {
-           int randomX = random.nextInt(maxX - minX + 1) + minX;
-           int randomY = random.nextInt(maxY - minY + 1) + minY;
-            TimeUnit.SECONDS.sleep(1);
-            w.place(randomX, randomY, test);
+        for (int i = 0; i < 70; i++) {
+            int[] location = w.findFreeLocation();
+            if (location == null) {
+                break;
+            }
+            w.place(location[0], location[1], test);
+            Thread.sleep(100);
         }
-        
+       //w.repaint();
+        // for (int i = 0; i < 35; i++) {
+        //    int randomX = random.nextInt(maxX - minX + 1) + minX;
+        //    int randomY = random.nextInt(maxY - minY + 1) + minY;
+        //     TimeUnit.SECONDS.sleep(1);
+        //     w.place(randomX, randomY, test);
+        //     System.out.println(w.getBuilding("House"));
+            
 
-        Apartment test2 = new Apartment();
-        w.place (6,6,test2);
-        w.remove(6,6);
+        // }
+        // int i = 1;
 
-        w.totalPeople();
-        sw.updateLabel(Integer.toString(w.total));
+        // w.place(i, i, test);
+        // System.out.println(w.getBuilding("House"));
+        // i++;
+
+        // Apartment test2 = new Apartment();
+        // w.place (6,6,test2);
+        // w.remove(6,6);
+
+        // w.totalPeople();
+        // sw.updateLabel(Integer.toString(w.total));
 
         
 
 
          
     
-        Office test3 = new Office(0, 0);
-        w.place(6, 7, test3);
+        // Office test3 = new Office(0, 0);
+        // w.place(6, 7, test3);
 
-        School test4 = new School();
-        w.place (6,8,test4); 
+        // School test4 = new School();
+        // w.place (6,8,test4); 
 
-        Mall test5 = new Mall();
-        w.place(9, 3, test5);
+        // Mall test5 = new Mall();
+        // w.place(9, 3, test5);
     }
+    
 }

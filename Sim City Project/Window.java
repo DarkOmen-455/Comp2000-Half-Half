@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 public class Window extends Frame {
 
     private int width;
@@ -44,13 +45,11 @@ public class Window extends Frame {
     Window(int width, int height){
         this.width = width;
         this.height = height;
-        this.grid = new Building[15][15];
-        this.setVisible(true);
         this.setSize(width,height);
+        this.grid = new Building[(width - 100) / 50][(height - 100) / 50];
         this.setTitle("Sim City");
         this.setBackground(Color.green);
-        Building[][] grid = new Building[height/50][width/50];
-
+        this.setVisible(true);
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we){
                 System.exit(0);
@@ -109,12 +108,7 @@ public class Window extends Frame {
            g2d.drawLine(50, i*50, 750, i*50); 
         }
 
-        //draw an oval
-        Graphics2D ovalg2d = (Graphics2D) g;
-        drawRedOval(ovalg2d,2,2);
-        ///removeDrawing(ovalg2d, 2, 2);
-
-        //testing 
+        g2d.translate(50, 50);
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 if (grid[x][y] != null) {
@@ -144,70 +138,85 @@ public class Window extends Frame {
         }
     }
 
-    public int[] findPlaceLocation(){
-        // find square 
-        int startX = height/50;
-        int startY = width/50;
+    public int[] findFreeLocation(){
+        int centerX = grid.length / 2;
+        int centerY = grid[0].length / 2;
 
-        //random 1-4, gives us sector of grid, havent impletmented
-        int ram = 1; 
+        int ram = (int)(Math.random() * 4) + 1;
+        int maxRadius = Math.max(centerX, centerY);// max between x and yy 
+        int minX;
+        int maxX;
+        int minY;
+        int maxY;
 
-        //
-        int x = startX -1; 
-        int y = startY -1; 
-        int[] total = new int[1];
-        boolean even = false;  // so i dont have to repreaste code 
-        while (startX < width/50 || startY < height/50){
-            //check if in bottom left or right will implerment for top as well later
-            // to move x and y to next diagional square 
-            /*
-            0 0 0 0 0        c = centerx and center y
-            0 0 0 0 0
-            - - c 0 0
-            0 c | 0 0
-            c 0 | 0 0
-            */
-            if (ram/2 == 0){
-                startX++;
-                startY--;
-                even = true;
-            }
-            else {
-                startX--;
-                startY++;
-            }
-            x = startX; y = startY;// to reset x and y
-            while(x<=(width/50)/2){// while x is not toching invissable center line 
-                if (spare(startX,startY)){
-                    total[0] = x;
-                    total[1] = y;
-                    return total;
-                }
-                if (even)
-                    x--;
-                else{
-                    x++;
-                }
-            }
-            while(y<=(height/50)/2){// same but for y
-                if (spare(startX,startY)){
-                    total[0] = x;
-                    total[1] = y;
-                    return total;
-                }
-                if(even)
-                    y++;
-                else{
-                    y--;
+        // set confinds for quad depending on ram
+        switch (ram) {
+            case 1:
+                minX = centerX;
+                maxX = grid.length - 1;
+                minY = 0;
+                maxY = centerY;
+                break;
+            case 2:
+                minX = 0;
+                maxX = centerX;
+                minY = 0;
+                maxY = centerY;
+                break;
+            case 3:
+                minX = 0;
+                maxX = centerX;
+                minY = centerY;
+                maxY = grid[0].length - 1;
+                break;
+            case 4:
+                minX = centerX;
+                maxX = grid.length - 1;
+                minY = centerY;
+                maxY = grid[0].length - 1;
+                break;
+            default:
+                return null;
+        }
+
+        // Expand outward from the center until a free cell is found
+        for (int radius = 0; radius <= maxRadius; radius++) {
+            // Check every x in the selected quadrant.
+            for (int x = minX; x <= maxX; x++) {
+                // Check every y for the current x.
+                for (int y = minY; y <= maxY; y++) { //math.abs() returns pos (ex -7=+7) 
+                    // check if x is within the radius, check is y is within radius, check is it is free
+                    if (Math.abs(x - centerX) <= radius && Math.abs(y - centerY) <= radius && spare(x, y)) {
+                        return new int[]{x, y};
+                    }
                 }
             }
         }
         return null;
     }
     public boolean spare(int x, int y){
+        
         if (grid[x][y] == null){
             return true;
         }
         return false;
     }
+
+    public void incPopulation(){
+        int step = 5;
+        ArrayList<House> total = new ArrayList<House>();
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[x].length; y++) {
+                if (grid[x][y] instanceof House){
+                    total.add((House) grid[x][y]);
+                }
+            }
+        }
+        for (int i = 0; i<step;i++){
+            int index = (int)(Math.random() * total.size()-1) + 1; ;
+            total.get(index).setAdults(total.get(index).getAdults()+1);
+        }
+    }
+
+    
 }

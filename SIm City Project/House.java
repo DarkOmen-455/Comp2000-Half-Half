@@ -36,5 +36,10 @@ public class House extends Building{
         g2d.fillOval((x * 50) + 7, (y * 50) + 7, 35, 35);
     }
 
+    @Override 
+    public String getName(){
+        return "House";
+    }
+
 
 }
