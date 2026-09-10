@@ -4,8 +4,8 @@ public class School extends Building {
     private int students, teachers; 
     //rule (can be changed later): if 200 children in 5 square radious ad school.
     public void school (int x, int y){
-        this.students = 300;
-        this.teachers = 30; 
+        this.students = 500;
+        this.teachers = 100; 
     }
 
     public void setStudents(int X) {
