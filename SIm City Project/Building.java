@@ -27,5 +27,8 @@ abstract class Building {
     }
 
     public abstract void build(Graphics2D g2d, int x, int y);
-    
+
+    public String getName(){
+        return getClass().getSimpleName();
+    }
 }
