@@ -1,6 +1,7 @@
 import java.awt.*;
 public class Office extends Apartment{
     private int workers; 
+    private int money = 0;
 
     public Office(int x, int y){
         this.workers  = getWorkers();
@@ -12,6 +13,9 @@ public class Office extends Apartment{
     }
     public int getWorkers(){
         return workers;
+    }
+    public int generateIncome(){
+        return money + 1 * workers;
     }
 
     @Override
