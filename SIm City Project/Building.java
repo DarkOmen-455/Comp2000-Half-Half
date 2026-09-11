@@ -19,7 +19,7 @@ abstract class Building {
     }
 
     public int getPopulation(){
-        return -1;
+        return 0;
     }
 
     public boolean toBeBuilt(){

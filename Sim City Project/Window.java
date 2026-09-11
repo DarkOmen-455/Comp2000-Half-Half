@@ -7,21 +7,31 @@ public class Window extends Frame {
     private int width;
     private int height;
     private Building[][] grid;
-    public int total = 0;
+    
+    public int[] getGridSize(){
+        int x = 0;
+        return new int[]{grid.length, grid[x].length}; 
+    }
 
-public int totalPeople(){
-    total = 0;
-    for (int i = 0; i<grid.length; i++){
-        for (int z = 0; z<grid[i].length; z++){
-           if (grid[i][z] instanceof House){
-    total += grid[i][z].getPopulation();
-    continue;
-}
-if (grid[i][z] instanceof Apartment){
-    total += grid[i][z].getPopulation();
-    continue;
-}
+     public int totalPeople(){
+        int total = 0;
+        for (int x = 0; x<grid.length; x++){
+            for (int y = 0; y<grid[x].length; y++){
+                //try{
+                    if (grid[x][y] == null)
+                        continue;
+                    if (grid[x][y].getName().equals("Apartment") || grid[x][y].getName().equals( "House")){
+                        total += grid[x][y].getPopulation();
+                        continue;
+                    }
+               // }
+                // catch(Exception e){
+                //     System.out.println("problem with if statement in totalpeople "+grid[i][z]);
+                // }
+            }
         }
+        // System.out.println("total people = "+total);
+        return total;
     }
 
     System.out.println("total people = "+total);
@@ -133,8 +143,8 @@ if (grid[i][z] instanceof Apartment){
 
         //System.out.println(grid.length);
         if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
-            grid[x][y] = b;
-            repaint();
+                grid[x][y] = b;
+                repaint();
         }
     }
 
@@ -213,9 +223,19 @@ if (grid[i][z] instanceof Apartment){
             }
         }
         for (int i = 0; i<step;i++){
-            int index = (int)(Math.random() * total.size());
-            total.get(index).setAdults(total.get(index).getAdults()+1);
+          try{
+    int index = (int)(Math.random() * total.size());
+    if (total.get(index).getAdults() <= 6){
+        total.get(index).setAdults(total.get(index).getAdults()+1);
+    }
+    else{
+        total.get(index).setAdults(total.get(index).getAdults()-1);
+    }
+}catch (IndexOutOfBoundsException e){
+    System.out.println("ArrayList out of bounds at:"+i);
+}   
         }
+         
     }
 
     
@@ -245,7 +265,16 @@ if (grid[i][z] instanceof Apartment){
         }
     }
 
-    tryBuildMall(population);
+    public void houseMain(){
+        House house = new House(2,2);
+        // check if needed
+        //incPopulation();
+        //find locaiton
+        int[] locaition = findFreeLocation();
+        //draw
+        place(locaition[0], locaition[1], house);
+        System.out.println("total population: "+ totalPeople());
+    }
 }
 
 public boolean tryBuildMall(int cityPopulation){

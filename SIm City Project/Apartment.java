@@ -18,4 +18,8 @@ public class Apartment extends Building{
         g2d.setColor(Color.BLACK);
         g2d.fillRect((x * 50) + 7, (y * 50) + 7, 35, 35);
     }
+
+    public String getName(){
+        return null;
+    }
 }
