@@ -3,6 +3,7 @@ import java.awt.Color;
 public class House extends Building{
     private int children, adults;
     
+
     public House(int x, int y){
         this.children = 2;
         this.adults = 2;
@@ -38,7 +39,7 @@ public class House extends Building{
 
     @Override 
     public String getName(){
-        return "House";
+        return getClass().getSimpleName();
     }
 
 
