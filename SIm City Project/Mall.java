@@ -5,7 +5,7 @@ public class Mall extends Building {
     public Shop[] list; // a mall is made up of an array of shops
     private static final int SHOPS_REQUIRED = 4;
     private static final int MIN_POPULATION = 100;
-    private static final int MAX_POPULATION = 200;
+    
 
     public Mall(){
         this.list = new Shop[SHOPS_REQUIRED];
