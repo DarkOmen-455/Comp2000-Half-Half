@@ -1,0 +1,15 @@
+public class NodeList <T>{
+    private Node<T> start;
+    private int size;
+
+    public NodeList(Node start){
+        this.size = 1;
+        this.start = start;
+    }
+
+    public Node<T> removeNode(Node<T> target){
+        while(start.nextNode == true){
+            
+        }
+    }
+}

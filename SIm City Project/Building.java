@@ -1,5 +1,6 @@
 import java.awt.Graphics2D;
-abstract class Building {
+import java.util.ArrayList;
+class Building{
     private int x, y;
 
     public void setX(int X){
@@ -26,9 +27,13 @@ abstract class Building {
         return false;
     }
 
-    public abstract void build(Graphics2D g2d, int x, int y);
+    public  void build(Graphics2D g2d, int x, int y){}
 
     public String getName(){
         return getClass().getSimpleName();
+    }
+
+    public <T extends Building> void addBuilding(ArrayList<T> buildings, T building) {
+        buildings.add(building);
     }
 }

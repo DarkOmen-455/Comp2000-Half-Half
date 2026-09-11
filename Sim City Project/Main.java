@@ -10,7 +10,7 @@ public class Main {
        // StatsWindow sw = new StatsWindow(300, 300);
 
        //creating main loop
-       for (w.isActive() == true){//is the window active
+       while (w.isActive() == true){//is the window active
             w.houseMain();
             Thread.sleep(500);
             w.repaint();

@@ -1,13 +1,10 @@
-public interface Disaster {
-    public void 
-    
-} 
 
-// class BabyBoom implements Disaster{
+
+// class BabyBoom implements CityEvent{
 
 // }
 
-class Covid implements Disaster{
+class Covid implements CityEvent{
     //all houses get -2 pop
     private int x;
     private int y;
@@ -22,12 +19,17 @@ class Covid implements Disaster{
         this.y = y;
         this.dec = dec;
     }
-    
+
+    public void run(Window window){
+       window.decPopulation();
+       window.decPopulation();
+    }
 }
 
-class Meteor extends Covid{
+class Meteor implements CityEvent{
+
     // area is destoryed 
-    public void meteorImpact(Window window){ 
+    public void run(Window window){ 
         //find lcoation 
         int[] cords = window.getGridSize(); 
         int x = (int)((Math.random() * cords[0]-2) + 1)-2; 
