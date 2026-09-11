@@ -1,3 +1,6 @@
+public interface Disaster {
+
+}
 
 
 // class BabyBoom implements CityEvent{
@@ -9,6 +12,9 @@ class Covid implements CityEvent{
     private int x;
     private int y;
     private int dec; 
+
+      public Covid(){
+    }
 
     public Covid(int dec){
         this.dec = dec;

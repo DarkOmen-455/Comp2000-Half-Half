@@ -1,16 +1,15 @@
 import java.util.Random;
 import java.util.concurrent.*;
 
-
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
-        Window w = new Window(800, 600); // width then height
-       // StatsWindow sw = new StatsWindow(300, 300);
+        Window w = new Window(800, 600);
+        StatsWindow sw = new StatsWindow(300, 300);
 
        //creating main loop
-       while (w.isActive() == true){//is the window active
+
+       while (w.isDisplayable()){
             w.houseMain();
             Thread.sleep(500);
             w.repaint();
@@ -82,5 +81,4 @@ public class Main {
 
         // sw.updateShopLabel(Integer.toString(w.getShopCount()));
     }
-    
 }

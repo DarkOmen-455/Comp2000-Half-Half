@@ -5,7 +5,7 @@ public class Mall extends Building {
     public Shop[] list; // a mall is made up of an array of shops
     private static final int SHOPS_REQUIRED = 4;
     private static final int MIN_POPULATION = 100;
-    private static final int MAX_POPULATION = 200;
+    
 
     public Mall(){
         this.list = new Shop[SHOPS_REQUIRED];
@@ -19,10 +19,9 @@ public class Mall extends Building {
 
     
     public static boolean canBuild(int shopCount, int cityPopulation){
-        return shopCount >= SHOPS_REQUIRED
-            && cityPopulation >= MIN_POPULATION
-            && cityPopulation <= MAX_POPULATION;
-    }
+    return shopCount >= SHOPS_REQUIRED
+        && cityPopulation >= MIN_POPULATION;
+}
 
     public int getShopCount(){
         int count = 0;
