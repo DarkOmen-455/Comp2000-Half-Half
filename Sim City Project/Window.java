@@ -9,24 +9,24 @@ public class Window extends Frame {
     private Building[][] grid;
     public int total = 0;
 
-     public int totalPeople(){
-        for (int i = 0; i<grid.length; i++){
-            for (int z = 0; z<grid[i].length; z++){
-                if (grid[z][i] instanceof House){
-                    total += grid[z][i].getPopulation();
-                    continue;
-                }
-                if (grid[z][z] instanceof Apartment){
-                    total += grid[z][i].getPopulation();
-                    continue;
-                }
-                    
-            }
+public int totalPeople(){
+    total = 0;
+    for (int i = 0; i<grid.length; i++){
+        for (int z = 0; z<grid[i].length; z++){
+           if (grid[i][z] instanceof House){
+    total += grid[i][z].getPopulation();
+    continue;
+}
+if (grid[i][z] instanceof Apartment){
+    total += grid[i][z].getPopulation();
+    continue;
+}
         }
-        System.out.println("total people = "+total);
-        return total;
     }
 
+    System.out.println("total people = "+total);
+    return total;
+}
     public void reset(){
         if (totalPeople() >=2000){
             for (int x = 0; x < grid.length; x++) {
@@ -213,7 +213,7 @@ public class Window extends Frame {
             }
         }
         for (int i = 0; i<step;i++){
-            int index = (int)(Math.random() * total.size()-1) + 1; ;
+            int index = (int)(Math.random() * total.size());
             total.get(index).setAdults(total.get(index).getAdults()+1);
         }
     }
@@ -230,5 +230,55 @@ public class Window extends Frame {
             }
         }
         return count;
+        }
+
+        public void tick(){
+    incPopulation();
+    int population = totalPeople();
+
+    int shopsNeeded = Shop.shopsRequired(population);
+    int shopsExisting = getShopCount();
+    if (shopsExisting < shopsNeeded){
+        int[] freeSpot = findFreeLocation();
+        if (freeSpot != null){
+            place(freeSpot[0], freeSpot[1], new Shop());
+        }
     }
+
+    tryBuildMall(population);
 }
+
+public boolean tryBuildMall(int cityPopulation){
+    ArrayList<int[]> shopLocations = new ArrayList<>();
+    for (int x = 0; x < grid.length; x++){
+        for (int y = 0; y < grid[x].length; y++){
+            if (grid[x][y] instanceof Shop){
+                shopLocations.add(new int[]{x, y});
+            }
+        }
+    }
+
+    if (!Mall.canBuild(shopLocations.size(), cityPopulation)){
+        return false;
+    }
+
+    // even if eligible, only actually build 15% of the time this is checked
+    if (Math.random() > 0.08){
+        return false;
+    }
+
+    Mall mall = new Mall();
+
+    for (int i = 0; i < mall.list.length; i++){
+        int[] loc = shopLocations.get(i);
+        mall.list[i] = (Shop) grid[loc[0]][loc[1]];
+        grid[loc[0]][loc[1]] = null;
+    }
+
+    int[] mallLocation = shopLocations.get(0);
+    place(mallLocation[0], mallLocation[1], mall);
+    return true;
+}
+}
+
+

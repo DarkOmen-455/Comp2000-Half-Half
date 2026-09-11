@@ -1,65 +1,25 @@
 import java.util.Random;
 import java.util.concurrent.*;
 
-
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
-        Window w = new Window(800, 600); // width then height
-       // StatsWindow sw = new StatsWindow(300, 300);
+        Window w = new Window(800, 600);
+        StatsWindow sw = new StatsWindow(300, 300);
 
-        
-         var random = new Random();
-         int minX = 1;
-         int minY = 1;
-         int maxX = 14;
-         int maxY = 10;
-
-
-        House test = new House(3, 3);
-        for (int i = 0; i < 70; i++) {
+        // seed a few starting houses
+        for (int i = 0; i < 15; i++) {
             int[] location = w.findFreeLocation();
-            if (location == null) {
-                break;
-            }
-            w.place(location[0], location[1], test);
-            Thread.sleep(100);
+            if (location == null) break;
+            w.place(location[0], location[1], new House(0, 0));
         }
-       //w.repaint();
-        // for (int i = 0; i < 35; i++) {
-        //    int randomX = random.nextInt(maxX - minX + 1) + minX;
-        //    int randomY = random.nextInt(maxY - minY + 1) + minY;
-        //     TimeUnit.SECONDS.sleep(1);
-        //     w.place(randomX, randomY, test);
-        //     System.out.println(w.getBuilding("House"));
-            
 
-        // }
-        // int i = 1;
-
-
-        w.totalPeople();
-        sw.updateLabel(Integer.toString(w.total));
-      
-    
-
-         
-    
-        // Office test3 = new Office(0, 0);
-        // w.place(6, 7, test3);
-
-        // School test4 = new School();
-        // w.place (6,8,test4); 
-
-
-        Mall test5 = new Mall();
-        w.place(9, 3, test5);
-
-        Shop test6 = new Shop(); 
-        w.place(11, 5, test6); 
-
-        sw.updateShopLabel(Integer.toString(w.getShopCount()));
+        // run the simulation loop
+        for (int i = 0; i < 200; i++) {
+            w.tick();
+            sw.updateLabel(Integer.toString(w.total));
+            sw.updateShopLabel(Integer.toString(w.getShopCount()));
+            Thread.sleep(200);
+        }
     }
-    
 }

@@ -19,10 +19,9 @@ public class Mall extends Building {
 
     
     public static boolean canBuild(int shopCount, int cityPopulation){
-        return shopCount >= SHOPS_REQUIRED
-            && cityPopulation >= MIN_POPULATION
-            && cityPopulation <= MAX_POPULATION;
-    }
+    return shopCount >= SHOPS_REQUIRED
+        && cityPopulation >= MIN_POPULATION;
+}
 
     public int getShopCount(){
         int count = 0;
