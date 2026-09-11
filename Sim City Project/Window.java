@@ -7,25 +7,30 @@ public class Window extends Frame {
     private int width;
     private int height;
     private Building[][] grid;
-
+    
     public int[] getGridSize(){
         int x = 0;
-        return new int[]{grid.length, grid[x].length};
+        return new int[]{grid.length, grid[x].length}; 
     }
 
      public int totalPeople(){
         int total = 0;
         for (int x = 0; x<grid.length; x++){
             for (int y = 0; y<grid[x].length; y++){
-                if (grid[x][y] == null)
-                    continue;
-                if (grid[x][y].getName().equals("Apartment") || grid[x][y].getName().equals( "House")){
-                    total += grid[x][y].getPopulation();
-                    continue;
-                }
+                //try{
+                    if (grid[x][y] == null)
+                        continue;
+                    if (grid[x][y].getName().equals("Apartment") || grid[x][y].getName().equals( "House")){
+                        total += grid[x][y].getPopulation();
+                        continue;
+                    }
+               // }
+                // catch(Exception e){
+                //     System.out.println("problem with if statement in totalpeople "+grid[i][z]);
+                // }
             }
         }
-        System.out.println("total people = "+total);
+        // System.out.println("total people = "+total);
         return total;
     }
 
@@ -36,9 +41,14 @@ public class Window extends Frame {
                     grid[x][y] = null;
                 }
             }
+
+            // place new house to start idk with users mouse?
         }
+        
     }
 
+
+    // constructor, acts as a decorator for our main window
     Window(int width, int height){
         this.width = width;
         this.height = height;
@@ -55,11 +65,12 @@ public class Window extends Frame {
     }
 
     public int getBuilding(String temp){
+        //pass in building subclass, returns number of subclasses in grid
         int total = 0;
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 if (grid[x][y] == null)
-                    continue;
+                    continue; 
                 if (grid[x][y].getName() == temp){
                     total++;
                 }
@@ -68,15 +79,40 @@ public class Window extends Frame {
         return total;
     }
 
+
+    // public boolean toBuildSchool(){
+    //     boolean total = false;
+    //     int children = 0;
+    //     for (int i = 0; i<grid.length; i++){
+    //         for (int z = 0; z<grid[i].length; z++){
+    //             if (grid[z][i] instanceof House){
+    //                 total += grid[z][i].getChildren();
+    //                 continue;
+    //             }
+    //             if (grid[z][z] instanceof Apartment){
+    //                 total += grid[z][i].get();
+    //                 continue;
+    //             }
+    //         }
+    //     }
+    //     return total;
+    // }
+ 
+
+    // paint method used to add graphics to the screen
     @Override public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
+        
 
+
+        //loop for vertical lines
         for (int i = 0; i < 100; i++) {
-            g2d.drawLine(i * 50, 50, i * 50, 550);
+            g2d.drawLine(i * 50, 50, i * 50, 550);    
         }
 
+        //loop for horizontal line
         for (int i = 0; i < 100; i++) {
-           g2d.drawLine(50, i*50, 750, i*50);
+           g2d.drawLine(50, i*50, 750, i*50); 
         }
 
         g2d.translate(50, 50);
@@ -88,18 +124,21 @@ public class Window extends Frame {
             }
         }
     }
-
-    public void drawRedOval(Graphics2D ovalg2d, int x, int y){
+    
+    public void drawRedOval(Graphics2D ovalg2d, int x, int y){;// draws red oval
         ovalg2d.setColor(Color.RED);
+        //ovalg2d.drawOval(75,75,25,25);
         ovalg2d.fillOval((x*50)+7,(y*50)+7,35,35);
     }
-
-    public void remove(int x, int y){
+    
+    public void remove(int x, int y){ 
         grid[x][y] = null;
         repaint();
     }
 
     public void place(int x, int y, Building b){
+
+        //System.out.println(grid.length);
         if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
                 grid[x][y] = b;
                 repaint();
@@ -111,12 +150,13 @@ public class Window extends Frame {
         int centerY = grid[0].length / 2;
 
         int ram = (int)(Math.random() * 4) + 1;
-        int maxRadius = Math.max(centerX, centerY);
+        int maxRadius = Math.max(centerX, centerY);// max between x and yy 
         int minX;
         int maxX;
         int minY;
         int maxY;
 
+        // set confinds for quad depending on ram
         switch (ram) {
             case 1:
                 minX = centerX;
@@ -146,10 +186,14 @@ public class Window extends Frame {
                 return null;
         }
 
+        // expand outward from the center until a free cell is found
         for (int radius = 0; radius <= maxRadius; radius++) {
+            // check every x in the selected quadrant.
             for (int x = minX; x <= maxX; x++) {
-                for (int y = minY; y <= maxY; y++) {
-                    if (Math.abs(x - centerX) <= radius && Math.abs(y - centerY) <= radius && spare(x, y)) {
+                // check every y for the current x.
+                for (int y = minY; y <= maxY; y++) { //math.abs() returns pos (ex -7=+7) 
+                    // check if x is within the radius, check is y is within radius, check is it is free
+                    if (Math.abs(x - centerX) <= radius && Math.abs(y - centerY) <= radius && spare(x, y)) {// make x and y positive not neg 
                         return new int[]{x, y};
                     }
                 }
@@ -157,8 +201,8 @@ public class Window extends Frame {
         }
         return null;
     }
-
     public boolean spare(int x, int y){
+        
         if (grid[x][y] == null){
             return true;
         }
@@ -177,22 +221,25 @@ public class Window extends Frame {
         }
         for (int i = 0; i<step;i++){
             try{
-                int index = (int)(Math.random() * total.size());
-                if (total.get(index).getAdults() <= 6){
+                int index = (int)(Math.random() * total.size()-1) + 1; 
+                if (total.get(i).getAdults()<= 6){
                     total.get(index).setAdults(total.get(index).getAdults()+1);
                 }
                 else{
                     total.get(index).setAdults(total.get(index).getAdults()-1);
-                }
+                }   
             }catch (IndexOutOfBoundsException e){
                 System.out.println("ArrayList out of bounds at:"+i);
             }
         }
+         
     }
 
+    
     public int getShopCount() {
         int count = 0;
-        for (int x = 0; x < grid.length; x++) {
+
+        for (int x = 0; x < grid.length; x++) { 
             for( int y = 0; y < grid[x].length; y++) {
                 if (grid[x][y] instanceof Shop) {
                     count++;
@@ -202,70 +249,43 @@ public class Window extends Frame {
         return count;
     }
 
-    public void tick(){
-        incPopulation();
-        int population = totalPeople();
-
-        int shopsNeeded = Shop.shopsRequired(population);
-        int shopsExisting = getShopCount();
-        if (shopsExisting < shopsNeeded){
-            int[] freeSpot = findFreeLocation();
-            if (freeSpot != null){
-                place(freeSpot[0], freeSpot[1], new Shop());
-            }
-        }
-        tryBuildMall(population);
+    public void houseMain(){
+        House house = new House(2,2);
+        // check if needed
+        //incPopulation();
+        //find locaiton
+        int[] locaition = findFreeLocation();
+        //draw
+        place(locaition[0], locaition[1], house);
+        System.out.println("total population: "+ totalPeople());
     }
 
-public void houseMain(){
-    House house = new House(2,2);
-    int[] locaition = findFreeLocation();
-    place(locaition[0], locaition[1], house);
-
-    int population = totalPeople();
-    System.out.println("total population: "+ population);
-
-    int shopsNeeded = Shop.shopsRequired(population);
-    int shopsExisting = getShopCount();
-    if (shopsExisting < shopsNeeded){
-        int[] freeSpot = findFreeLocation();
-        if (freeSpot != null){
-            place(freeSpot[0], freeSpot[1], new Shop());
-        }
-    }
-
-    tryBuildMall(population);
-}
-
-
-    public boolean tryBuildMall(int cityPopulation){
-        ArrayList<int[]> shopLocations = new ArrayList<>();
-        for (int x = 0; x < grid.length; x++){
-            for (int y = 0; y < grid[x].length; y++){
-                if (grid[x][y] instanceof Shop){
-                    shopLocations.add(new int[]{x, y});
+        public void decPopulation(){
+        int step = 30;
+        ArrayList<House> total = new ArrayList<House>();
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[x].length; y++) {
+                if (grid[x][y] instanceof House){
+                    total.add((House) grid[x][y]);
                 }
             }
         }
-
-        if (!Mall.canBuild(shopLocations.size(), cityPopulation)){
-            return false;
+        for (int i = 0; i<step;i++){
+            try{
+                int index = (int)(Math.random() * total.size()-1) + 1; 
+                if (total.get(index) == null)
+                    break;
+                if (total.get(i).getAdults()<= 6){
+                    total.get(index).setAdults(total.get(index).getAdults()-1);
+                }
+                else{
+                    total.get(index).setAdults(total.get(index).getAdults()-1);
+                }   
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("ArrayList out of bounds at:"+i);
+            }
         }
-
-        if (Math.random() > 0.08){
-            return false;
-        }
-
-        Mall mall = new Mall();
-
-        for (int i = 0; i < mall.list.length; i++){
-            int[] loc = shopLocations.get(i);
-            mall.list[i] = (Shop) grid[loc[0]][loc[1]];
-            grid[loc[0]][loc[1]] = null;
-        }
-
-        int[] mallLocation = shopLocations.get(0);
-        place(mallLocation[0], mallLocation[1], mall);
-        return true;
+         
     }
+
 }

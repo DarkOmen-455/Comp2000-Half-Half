@@ -1,6 +1,4 @@
-public interface Disaster {
 
-}
 
 
 // class BabyBoom implements CityEvent{
