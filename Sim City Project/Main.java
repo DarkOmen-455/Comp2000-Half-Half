@@ -1,5 +1,3 @@
-import java.util.Random;
-import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -7,12 +5,16 @@ public class Main {
         Window w = new Window(800, 600);
         StatsWindow sw = new StatsWindow(300, 300);
 
+        
+        Office o = new Office(0, 0);
+        int money = o.generateIncome();
        //creating main loop
 
        while (w.isDisplayable()){
             w.houseMain();
             Thread.sleep(500);
             w.repaint();
+
        }
 
 
