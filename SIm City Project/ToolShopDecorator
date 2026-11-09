@@ -1,0 +1,13 @@
+public class ToolShopDecorator extends ShopDecorator {
+
+//constructor   
+public ToolShopDecorator(Shop shop){
+    super(shop);
+    }
+
+//gets the shops name    
+@Override
+public String getName() { 
+    return getDecoratedShop().getName() + " - Tool Shop ";
+    }
+}
