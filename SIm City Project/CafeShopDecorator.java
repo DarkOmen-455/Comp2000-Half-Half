@@ -10,4 +10,12 @@ public CafeShopDecorator(Shop shop){
 public String getName() { 
     return getDecoratedShop().getName() + " - Cafe Shop ";
     }
+
+    // description of what the shop sells 
+@Override
+public String getDescription() {
+    return getDecoratedShop().getDescription() + " a small shop to buy drinks and sweets. ";
 }
+}
+
+

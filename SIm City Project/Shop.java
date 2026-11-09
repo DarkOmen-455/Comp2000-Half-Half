@@ -25,5 +25,9 @@ public class Shop extends Building{
         return getClass().getSimpleName();
     } 
     
+    // gets a short description of shop 
+    public String getDescription() { 
+        return " A small shop to buy everyday products.";
+    }
     } 
 

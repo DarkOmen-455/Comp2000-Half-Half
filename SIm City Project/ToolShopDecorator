@@ -10,4 +10,10 @@ public ToolShopDecorator(Shop shop){
 public String getName() { 
     return getDecoratedShop().getName() + " - Tool Shop ";
     }
+
+// description of what the shop sells 
+@Override
+public String getDescription() {
+    return getDecoratedShop().getDescription() + " a small shop to buy tools, paint and machinery. ";
+}
 }
