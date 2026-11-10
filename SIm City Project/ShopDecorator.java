@@ -38,5 +38,15 @@ public abstract class ShopDecorator extends Shop{
     public boolean toBeBuilt() { 
         return decoratedShop.toBeBuilt();
     }
+
+    @Override
+    public String getDescription() { 
+        return decoratedShop.getDescription();
+    }
+
+    @Override
+    public int getShopCapacity() { 
+        return decoratedShop.getShopCapacity();
+    }
 }
 

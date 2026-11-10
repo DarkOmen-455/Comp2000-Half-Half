@@ -29,5 +29,9 @@ public class Shop extends Building{
     public String getDescription() { 
         return " A small shop to buy everyday products.";
     }
+
+    public int getShopCapacity () {
+        return 0;
+    }
     } 
 
