@@ -1,4 +1,5 @@
-
+import java.util.UUID;
+import java.util.stream.Stream;
 
 
 public class Main {
@@ -10,10 +11,23 @@ public class Main {
         w.addObserver(new ShopObserver2(w,pop));
         w.addObserver(new ApartmentObserver2(w));
         HouseObserver2 house = new HouseObserver2(w);
+
+        Sunny sun = new Sunny();
+        Rain rain = new Rain();
+        Stream<WeatherState> weatherStream = Stream.of(sun, rain);
+        Weather weather = new Weather(); 
+
         while (w.isDisplayable()){
             house.receive();
+            WeatherState state = weatherStream.
+                filter(n -> n instanceof WeatherState).
+                findFirst().
+                orElse(null);
+            weather.setState(state);
             Thread.sleep(500);
         }
+
+
 
         
         // BuildStrategyManager buildManager = new BuildStrategyManager();

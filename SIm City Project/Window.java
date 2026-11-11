@@ -2,14 +2,19 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Observer;
 public class Window extends Frame {
 
     private int width;
     private int height;
     private Building[][] grid;
+    private Weather weather;
     private ArrayList<GridObserver> observers = new ArrayList<GridObserver>();
     int totalPop = 0;
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+        repaint();
+    }
 
     //for observer pattern
     public void addObserver(GridObserver observer) {
@@ -144,6 +149,10 @@ public class Window extends Frame {
                     grid[x][y].build(g2d, x, y);
                 }
             }
+        }
+
+        if (weather != null) {
+            weather.changeWeather(g2d);
         }
     }
     
