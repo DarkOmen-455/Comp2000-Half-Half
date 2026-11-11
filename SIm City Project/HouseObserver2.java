@@ -3,10 +3,10 @@ import java.lang.management.RuntimeMXBean;
 
 public class HouseObserver2{
     private final Window window;
-    long interval = 1500;
-    RuntimeMXBean runtimeBean = ManagementFactory.getRuntimeMXBean();
-    boolean placingHouse = false;
-    long lastUpTime = 0; 
+    private final long interval = 1500;
+    private final RuntimeMXBean runtimeBean = ManagementFactory.getRuntimeMXBean();
+    private boolean placingHouse = false;
+    private long lastUpTime;
 
 
     public HouseObserver2(Window window) {
@@ -14,19 +14,27 @@ public class HouseObserver2{
     }
 
     public void receive(){
-        if (placingHouse)
-            return; 
-        
+        if (placingHouse) {
+            return;
+        }
+
         long upTime = runtimeBean.getUptime(); // returns uptime in milliseconds
 
-        if ((upTime - lastUpTime)>1500){
-            placingHouse = true;
-            int[] location = window.findFreeLocation();
-            try{
-                window.place(location[0], location[1], new House(2,2));
-            } finally{
-                placingHouse = false;
-            }
+        if (lastUpTime != 0 && upTime - lastUpTime < interval) {
+            return;
+        }
+
+        int[] location = window.findFreeLocation();
+        if (location == null) {
+            return;
+        }
+
+        placingHouse = true;
+        try {
+            window.place(location[0], location[1], new House(2, 2));
+            lastUpTime = upTime;
+        } finally {
+            placingHouse = false;
         }
     }
 

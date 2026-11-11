@@ -10,21 +10,17 @@ public class PopulationObserver2 implements GridObserver{
 
     @Override 
     public void receive(int x, int y, Building oldBuilding, Building newBuilding){
-        if (newBuilding == null){
-            totalPop-=oldBuilding.getPopulation();
-            return;
+        if (newBuilding == null) {
+            if (oldBuilding != null) {
+                totalPop -= oldBuilding.getPopulation();
+            }
+        } else if (oldBuilding == null) {
+            totalPop += newBuilding.getPopulation();
+        } else {
+            totalPop += newBuilding.getPopulation();
+            totalPop -= oldBuilding.getPopulation();
         }
-        if (oldBuilding == null){
-            totalPop+=newBuilding.getPopulation();
-            return;
-        }
 
-
-       // housingList.removeIf(building -> building instanceof House && building.getPopulation() == oldBuilding.getPopulation());
-
-        totalPop+=newBuilding.getPopulation();
-        totalPop-=oldBuilding.getPopulation();
         System.out.println("pop "+totalPop);
     }
 }
-

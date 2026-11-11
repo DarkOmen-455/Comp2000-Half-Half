@@ -1,7 +1,3 @@
-import java.util.UUID;
-import java.util.stream.Stream;
-
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
@@ -14,17 +10,17 @@ public class Main {
 
         Sunny sun = new Sunny();
         Rain rain = new Rain();
-        Stream<WeatherState> weatherStream = Stream.of(sun, rain);
-        Weather weather = new Weather(); 
+        WeatherState[] weatherStates = {sun, rain};
+        int weatherIndex = 0;
+        Weather weather = new Weather();
+        w.setWeather(weather);
 
         while (w.isDisplayable()){
             house.receive();
-            WeatherState state = weatherStream.
-                filter(n -> n instanceof WeatherState).
-                findFirst().
-                orElse(null);
-            weather.setState(state);
-            Thread.sleep(500);
+            weather.setState(weatherStates[weatherIndex]);
+            weatherIndex = (weatherIndex + 1) % weatherStates.length;
+            w.repaint();
+            Thread.sleep(200);
         }
 
 

@@ -1,12 +1,16 @@
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.*;
+
+
 public class Window extends Frame {
 
     private int width;
     private int height;
     private Building[][] grid;
+    private Building[] grid2;
     private Weather weather;
     private ArrayList<GridObserver> observers = new ArrayList<GridObserver>();
     int totalPop = 0;
@@ -37,8 +41,7 @@ public class Window extends Frame {
     
     
     public int[] getGridSize(){
-        int x = 0;
-        return new int[]{grid.length, grid[x].length}; 
+        return new int[]{10, 14}; 
     }
 
      public int totalPeople(){
@@ -143,24 +146,36 @@ public class Window extends Frame {
         }
 
         g2d.translate(50, 50);
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[x].length; y++) {
-                if (grid[x][y] != null) {
-                    grid[x][y].build(g2d, x, y);
-                }
+        // for (int x = 0; x < grid.length; x++) {
+        //     for (int y = 0; y < grid[x].length; y++) {
+        //         if (grid[x][y] != null) {
+        //             grid[x][y].build(g2d, x, y);
+        //         }
+        //     }
+        // }
+
+        int columns = grid[0].length;
+
+        IntStream.range(0, grid.length * columns).forEach(i -> {
+            int x = i / columns;
+            int y = i % columns;
+            Building building = grid[x][y];
+
+            if (building != null) {
+                building.build(g2d, x, y);
             }
-        }
+        });
 
         if (weather != null) {
             weather.changeWeather(g2d);
         }
     }
     
-    public void drawRedOval(Graphics2D ovalg2d, int x, int y){;// draws red oval
-        ovalg2d.setColor(Color.RED);
-        //ovalg2d.drawOval(75,75,25,25);
-        ovalg2d.fillOval((x*50)+7,(y*50)+7,35,35);
-    }
+    // public void drawRedOval(Graphics2D ovalg2d, int x, int y){;// draws red oval
+    //     ovalg2d.setColor(Color.RED);
+    //     //ovalg2d.drawOval(75,75,25,25);
+    //     ovalg2d.fillOval((x*50)+7,(y*50)+7,35,35);
+    // }
     
     public void remove(int x, int y){
         if (x < 0 || x >= grid.length || y < 0 || y >= grid[x].length) {
@@ -191,18 +206,18 @@ public class Window extends Frame {
     }
 
     public int[] findFreeLocation(){
+
         int centerX = grid.length / 2;
         int centerY = grid[0].length / 2;
 
-        int ram = (int)(Math.random() * 4) + 1;
-        int maxRadius = Math.max(centerX, centerY);// max between x and yy 
+        int quadrant = (int) (Math.random() * 4) + 1;
+
         int minX;
         int maxX;
         int minY;
         int maxY;
 
-        // set confinds for quad depending on ram
-        switch (ram) {
+        switch (quadrant) {
             case 1:
                 minX = centerX;
                 maxX = grid.length - 1;
@@ -231,21 +246,83 @@ public class Window extends Frame {
                 return null;
         }
 
-        // expand outward from the center until a free cell is found
-        for (int radius = 0; radius <= maxRadius; radius++) {
-            // check every x in the selected quadrant.
-            for (int x = minX; x <= maxX; x++) {
-                // check every y for the current x.
-                for (int y = minY; y <= maxY; y++) { //math.abs() returns pos (ex -7=+7) 
-                    // check if x is within the radius, check is y is within radius, check is it is free
-                    if (Math.abs(x - centerX) <= radius && Math.abs(y - centerY) <= radius && spare(x, y)) {// make x and y positive not neg 
-                        return new int[]{x, y};
-                    }
-                }
-            }
+        int height = maxY - minY + 1;
+        int total = (maxX - minX + 1) * height;
+
+        int best = IntStream.range(0, total)
+                .parallel()
+                .filter(i -> spare(minX + i / height, minY + i % height))
+                .map(i -> {
+                    int dx = Math.abs(minX + i / height - centerX);
+                    int dy = Math.abs(minY + i % height - centerY);
+                    return Math.max(dx, dy) * total + i;   
+                })
+                .min()
+                .orElse(-1);
+
+        if (best == -1) {
+            return null;
         }
-        return null;
+
+        int i = best % total;
+        return new int[]{minX + i / height, minY + i % height};
+
+        // int centerX = grid.length / 2;
+        // int centerY = grid[0].length / 2;
+
+        // int ram = (int)(Math.random() * 4) + 1;
+        // int maxRadius = Math.max(centerX, centerY);// max between x and yy 
+        // int minX;
+        // int maxX;
+        // int minY;
+        // int maxY;
+
+        // // set confinds for quad depending on ram
+        // switch (ram) {
+        //     case 1:
+        //         minX = centerX;
+        //         maxX = grid.length - 1;
+        //         minY = 0;
+        //         maxY = centerY;
+        //         break;
+        //     case 2:
+        //         minX = 0;
+        //         maxX = centerX;
+        //         minY = 0;
+        //         maxY = centerY;
+        //         break;
+        //     case 3:
+        //         minX = 0;
+        //         maxX = centerX;
+        //         minY = centerY;
+        //         maxY = grid[0].length - 1;
+        //         break;
+        //     case 4:
+        //         minX = centerX;
+        //         maxX = grid.length - 1;
+        //         minY = centerY;
+        //         maxY = grid[0].length - 1;
+        //         break;
+        //     default:
+        //         return null;
+        // }
+
+        // // expand outward from the center until a free cell is found
+        // for (int radius = 0; radius <= maxRadius; radius++) {
+        //     // check every x in the selected quadrant.
+        //     for (int x = minX; x <= maxX; x++) {
+        //         // check every y for the current x.
+        //         for (int y = minY; y <= maxY; y++) { //math.abs() returns pos (ex -7=+7) 
+        //             // check if x is within the radius, check is y is within radius, check is it is free
+        //             if (Math.abs(x - centerX) <= radius && Math.abs(y - centerY) <= radius && spare(x, y)) {// make x and y positive not neg 
+        //                 return new int[]{x, y};
+        //             }
+        //         }
+        //     }
+        // }
+        // return null;
     }
+
     public boolean spare(int x, int y){
         
         if (grid[x][y] == null){
