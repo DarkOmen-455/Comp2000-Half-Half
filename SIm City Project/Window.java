@@ -2,11 +2,34 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Observer;
 public class Window extends Frame {
 
     private int width;
     private int height;
     private Building[][] grid;
+    private ArrayList<GridObserver> observers = new ArrayList<GridObserver>();
+    int totalPop = 0;
+
+    //for observer pattern
+    public void addObserver(GridObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(GridObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(int x, int y, Building oldBuilding, Building newBuilding) {
+        for (GridObserver observer : observers) {
+            observer.receive(x, y, oldBuilding, newBuilding);
+        }
+    }
+
+    public Building getIndex(int x, int y){
+        return grid[x][y];
+    }
+    
     
     public int[] getGridSize(){
         int x = 0;
@@ -30,7 +53,7 @@ public class Window extends Frame {
                 }
             }
         }
-        // System.out.println("total people = "+total);
+         System.out.println("total people = "+total);
         return total;
     }
 
@@ -97,13 +120,12 @@ public class Window extends Frame {
     //     }
     //     return total;
     // }
- 
+
+    
 
     // paint method used to add graphics to the screen
     @Override public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        
-
 
         //loop for vertical lines
         for (int i = 0; i < 100; i++) {
@@ -131,17 +153,31 @@ public class Window extends Frame {
         ovalg2d.fillOval((x*50)+7,(y*50)+7,35,35);
     }
     
-    public void remove(int x, int y){ 
+    public void remove(int x, int y){
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[x].length) {
+            return;
+        }
+
+        Building oldBuilding = grid[x][y];
+        if (oldBuilding == null) {
+            return;
+        }
+
         grid[x][y] = null;
+        notifyObservers(x, y, oldBuilding, null);
         repaint();
     }
 
     public void place(int x, int y, Building b){
-
-        //System.out.println(grid.length);
         if (x >= 0 && x < grid.length && y >= 0 && y < grid[x].length) {
-                grid[x][y] = b;
-                repaint();
+            Building oldBuilding = grid[x][y];
+            if (oldBuilding == b) {
+                return;
+            }
+
+            grid[x][y] = b;
+            notifyObservers(x, y, oldBuilding, b);
+            repaint();
         }
     }
 
@@ -236,6 +272,7 @@ public class Window extends Frame {
     }
 
     
+    
     public int getShopCount() {
         int count = 0;
 
@@ -249,16 +286,15 @@ public class Window extends Frame {
         return count;
     }
 
-    // public void houseMain(){
-    //     House house = new House(2,2);
-    //     // check if needed
-    //     //incPopulation();
-    //     //find locaiton
-    //     int[] locaition = findFreeLocation();
-    //     //draw
-    //     place(locaition[0], locaition[1], house);
-    //     System.out.println("total population: "+ totalPeople());
-    // }
+    public void mainplace(Building b){
+        // check if needed
+        //incPopulation();
+        //find locaiton
+        int[] locaition = findFreeLocation();
+        //draw
+        place(locaition[0], locaition[1], b);
+        System.out.println("total population: "+ totalPeople());
+    }
 
         public void decPopulation(){
         int step = 30;

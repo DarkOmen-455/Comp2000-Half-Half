@@ -1,10 +1,20 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-public class Apartment extends Building{
-    public House[] list; // a apartment is made out of a arrray of houses  
-    
+public class Apartment extends Building {
+    private final int population;
 
-    
+    public Apartment() {
+        this(0);
+    }
+
+    public Apartment(int population) {
+        this.population = population;
+    }
+
+    @Override
+    public int getPopulation() {
+        return population;
+    }
 
     @Override
     public void build(Graphics2D g2d, int x, int y) {

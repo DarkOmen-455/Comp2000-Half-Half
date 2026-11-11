@@ -1,5 +1,10 @@
+package WeatherStates;
 public class Weather{
     private WeatherState currentState; 
+
+    public WeatherState getState(){
+        return currentState;
+    }
     
     public Weather(){
         currentState = new Sunny();

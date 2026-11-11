@@ -5,23 +5,32 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Initializing program");
         Window w = new Window(800, 600);
+        PopulationObserver2 pop = new PopulationObserver2();
+        w.addObserver(pop);
+        w.addObserver(new ShopObserver2(w,pop));
+        w.addObserver(new ApartmentObserver2(w));
+        HouseObserver2 house = new HouseObserver2(w);
+        while (w.isDisplayable()){
+            house.receive();
+            Thread.sleep(500);
+        }
 
         
-        BuildStrategyManager buildManager = new BuildStrategyManager();
-        BuildLogic[] builds = {new HouseStrategy(), new OfficeStrategy(), new SchoolStrategy(), new ShopStrategy(), new ApartmentStrategy(), new MallStrategy()};
+        // BuildStrategyManager buildManager = new BuildStrategyManager();
+        // BuildLogic[] builds = {new HouseStrategy(), new OfficeStrategy(), new SchoolStrategy(), new ShopStrategy(), new ApartmentStrategy(), new MallStrategy()};
        //creating main loop
 
        
 
 
-        buildManager.SetStrategy(builds[0]);
+    //     buildManager.SetStrategy(builds[0]);
 
-        while (w.isDisplayable()){
-        buildManager.executeStrategy(w);
-            Thread.sleep(500);
-            buildManager.SetStrategy(builds[(int)(Math.random() * builds.length)]);
-            w.repaint();
-       }
+    //     while (w.isDisplayable()){
+    //     buildManager.executeStrategy(w);
+    //         Thread.sleep(500);
+    //         buildManager.SetStrategy(builds[(int)(Math.random() * builds.length)]);
+    //         w.repaint();
+    //    }
 
 
 
